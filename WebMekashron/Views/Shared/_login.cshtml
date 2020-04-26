@@ -1,0 +1,25 @@
+﻿@using WebMekashron.Security
+
+@if (MembershipHelper.IsAuthenticated)
+{
+    <a class="btn btn-info" href="@Url.Action("Index","User")">Profile</a>
+}
+else
+{
+    <a class="btn btn-primary" href="@Url.Action("Login","Account")">Sign In</a>
+}
+
+<span>&nbsp;&nbsp;</span>
+
+@if (MembershipHelper.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+    <a class="btn btn-primary" href="javascript:void(0);" onclick="return  document.getElementById('logoutForm').submit()">Sign Out</a>
+}
+else
+{
+    <a class="btn btn-success" href="@Url.Action("Register","Account")">Registration</a>
+}
